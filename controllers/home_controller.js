@@ -6,6 +6,9 @@ module.exports.home = function (req, res) {
       console.log(err);
       return;
     }
-    return res.send(contacts);
+    return res.render("home", {
+      title: "Hello World",
+      contacts: contacts,
+    });
   });
 };
