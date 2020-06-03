@@ -2,15 +2,26 @@ const express = require("express");
 const port = 8000;
 
 const app = express();
+const bodyParser = require("body-parser");
 
+// for handling form submitted data
 app.use(express.urlencoded());
+app.use(bodyParser.json());
+// for handling cookies
+// app.use(cookieParser);
+
+// for using ejs layout for dynamic template rendering
 const expressLayouts = require("express-ejs-layouts");
 
 app.use(expressLayouts);
+
+// for using static files
 app.use(express.static("assets"));
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
+
+// for using style and script tags inside ejs files other than base layout
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 

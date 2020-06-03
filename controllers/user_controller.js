@@ -1,7 +1,28 @@
 const User = require("../models/user");
 
 module.exports.userProfile = function (req, res) {
-  return res.send("User Profile");
+  let rawCookies = req.headers.cookie.split(";");
+  const parsedCookies = {};
+  rawCookies.forEach((rawCookie) => {
+    const parsedCookie = rawCookie.split("=");
+    parsedCookies[parsedCookie[0].trim()] = parsedCookie[1].trim();
+  });
+  if (!("user_id" in parsedCookies)) {
+    return res.redirect("/users/login");
+  }
+  User.findById(parsedCookies["user_id"], function (err, user) {
+    if (err) {
+      console.log("Error in creating user while signing up");
+      return res.redirect("back");
+    }
+    if (!user) {
+      return res.redirect("back");
+    }
+    return res.render("profile", {
+      title: "Profile",
+      user: { name: user.name, email: user.email },
+    });
+  });
 };
 
 module.exports.create = function (req, res) {
@@ -43,18 +64,23 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.createSession = function (req, res) {
-  name = req.body.name;
+  console.log("createSession", req.body);
+  email = req.body.email;
   password = req.body.password;
-  User.findOne({ name: name }, function (err, user) {
+  User.findOne({ email: email }, function (err, user) {
     if (err) {
       console.log("Error while getting the user");
       return res.redirect("back");
     }
-    if (user.password == password) {
-      return res.send("Successfully Logged in");
+    if (!user) {
+      res.redirect("back");
+    } else {
+      if (user.password != password) {
+        console.log("Password Mismatch");
+        return res.redirect("back");
+      }
+      res.cookie("user_id", user.id);
+      return res.redirect("/users/profile");
     }
-    return res.render("login", {
-      title: password + " " + user.password,
-    });
   });
 };
