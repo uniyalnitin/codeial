@@ -8,6 +8,10 @@
     <title><%= title %></title>
   </head>
   <body>
-    <%- include('_header') %> <%- body %> <%- include('_footer') %>
+    <%- include('_header') %>
+    <div class="content-area">
+      <%- body %>
+    </div>
+    <%- include('_footer') %> <%- script %>
   </body>
 </html>

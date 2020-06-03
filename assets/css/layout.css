@@ -1,4 +1,10 @@
 body {
   margin: 0;
   text-align: center;
+  position: relative;
+}
+
+.content-area {
+  height: 82vh;
+  box-sizing: border-box;
 }

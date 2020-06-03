@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/css/login.css" />
+<div class="form">
+  <form class="register-form" action="/users/create" method="POST">
+    <input type="text" placeholder="name" name="name" />
+    <input type="text" placeholder="email address" name="email" />
+    <input type="password" placeholder="password" name="password" />
+    <input
+      type="password"
+      placeholder="confirm password"
+      name="confirmPassword"
+    />
+    <button>create</button>
+    <p class="message">Already registered? <a href="#">Sign In</a></p>
+  </form>
+  <form class="login-form" action="/users/login" method="POST">
+    <input type="text" placeholder="username" name="name" />
+    <input type="password" placeholder="password" name="password" />
+    <button>login</button>
+    <p class="message">Not registered? <a href="#">Create an account</a></p>
+  </form>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"
+></script>
+<script src="/js/login.js"></script>

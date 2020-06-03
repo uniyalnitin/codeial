@@ -3,6 +3,7 @@ const port = 8000;
 
 const app = express();
 
+app.use(express.urlencoded());
 const expressLayouts = require("express-ejs-layouts");
 
 app.use(expressLayouts);
