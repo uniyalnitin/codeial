@@ -63,6 +63,11 @@ module.exports.login = function (req, res) {
   });
 };
 
+module.exports.logout = function (req, res) {
+  res.clearCookie("user_id");
+  return res.redirect("/users/login");
+};
+
 module.exports.createSession = function (req, res) {
   console.log("createSession", req.body);
   email = req.body.email;
