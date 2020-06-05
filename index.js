@@ -3,6 +3,9 @@ const port = 8000;
 
 const app = express();
 
+app.use(express.urlencoded());
+app.use(express.json());
+
 const db = require("./config/mongoose");
 
 const expressLayouts = require("express-ejs-layouts");
