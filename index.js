@@ -3,6 +3,8 @@ const port = 8000;
 
 const app = express();
 
+const db = require("./config/mongoose");
+
 const expressLayouts = require("express-ejs-layouts");
 
 app.use(expressLayouts);
@@ -13,15 +15,6 @@ app.set("views", "./views");
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/codeial");
-
-const db = mongoose.connection;
-
-db.on("error", console.error.bind(console, "Cannot connect to db"));
-db.once("open", function () {
-  console.log("Successfully connected to db");
-});
 // use express router
 app.use("/", require("./routes"));
 
