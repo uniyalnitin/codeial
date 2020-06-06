@@ -1,0 +1,32 @@
+header {
+  background-color: #5865da;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 1rem;
+}
+
+header p {
+  font-weight: bolder !important;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+header #header-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+}
+
+header #header-content div {
+  margin-left: 1rem;
+  font-weight: bolder;
+}
+
+header #header-content div a {
+  text-decoration: none;
+  color: white;
+}

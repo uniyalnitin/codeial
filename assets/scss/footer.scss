@@ -1,0 +1,16 @@
+footer {
+  background-color: grey;
+  color: white;
+  min-height: 2rem;
+  padding: 1rem;
+
+  #footer-container {
+    display: flex;
+    font-size: 1.2rem;
+    #links {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}

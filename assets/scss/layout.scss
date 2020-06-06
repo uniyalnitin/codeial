@@ -5,19 +5,16 @@
   margin: 0 auto;
   height: 90vh !important;
 }
-
 .container:before,
 .container:after {
   content: "";
   display: block;
   clear: both;
 }
-
 .container .info {
   margin: 50px auto;
   text-align: center;
 }
-
 .container .info h1 {
   margin: 0 0 15px;
   padding: 0;
@@ -25,24 +22,19 @@
   font-weight: 300;
   color: #1a1a1a;
 }
-
 .container .info span {
   color: #4d4d4d;
   font-size: 12px;
 }
-
 .container .info span a {
   color: #000000;
   text-decoration: none;
 }
-
 .container .info span .fa {
   color: #ef3b3a;
 }
-
 body {
-  background: #76b852;
-  /* fallback for old browsers */
+  background: #76b852; /* fallback for old browsers */
   background: -webkit-linear-gradient(right, #76b852, #8dc26f);
   background: -moz-linear-gradient(right, #76b852, #8dc26f);
   background: -o-linear-gradient(right, #76b852, #8dc26f);

@@ -4,6 +4,7 @@ const port = 8000;
 const app = express();
 const db = require("./config/mongoose");
 const expressLayouts = require("express-ejs-layouts");
+const sassMiddleware = require("node-sass-middleware");
 
 //Session management
 const session = require("express-session");
@@ -17,6 +18,16 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
+
+app.use(
+  sassMiddleware({
+    src: "./assets/scss",
+    dest: "./assets/css",
+    prefix: "/css",
+    outputStyle: "expanded",
+    debug: true,
+  })
+);
 
 app.use(express.urlencoded());
 app.use(express.json());
