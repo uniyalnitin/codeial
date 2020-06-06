@@ -9,3 +9,5 @@ db.on("error", console.error.bind(console, "Cannot connect to mongodb"));
 db.once("open", function () {
   console.log("Successfully connected to mongodb");
 });
+
+module.exports = db;
