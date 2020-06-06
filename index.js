@@ -10,6 +10,9 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-statergy");
 
+// mongo store for saving session data
+const MongoStore = require("connect-mongo")(session);
+
 app.set("view engine", "ejs");
 app.set("views", "./views");
 app.set("layout extractStyles", true);
@@ -21,6 +24,7 @@ app.use(expressLayouts);
 app.use(express.static("assets"));
 app.use(passport.setAuthenticatedUser);
 
+// Use mongo store for saving session data
 app.use(
   session({
     name: "codeial",
@@ -30,6 +34,15 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60,
     },
+    store: new MongoStore(
+      {
+        mongooseConnection: db,
+        autoRemove: "disabled",
+      },
+      function (err) {
+        console.error.bind(console, "Error setting up mongo store for session");
+      }
+    ),
   })
 );
 
