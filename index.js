@@ -19,6 +19,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(expressLayouts);
 app.use(express.static("assets"));
+app.use(passport.setAuthenticatedUser);
 
 app.use(
   session({
