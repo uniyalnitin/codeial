@@ -1,8 +1,25 @@
 <link rel="stylesheet" href="/css/home.css" />
-<h1>This is body</h1>
-<ul>
-  <% for (let i=0; i< contacts.length; i++) { %>
-  <li><%= contacts[i].name %></li>
+<h1>Codial</h1>
+<section>
+  <h4>Posts</h4>
+  <form action="/posts/create" method="POST">
+    <textarea
+      name="content"
+      id="content"
+      cols="30"
+      rows="3"
+      required
+      placeholder="type here..."
+    ></textarea>
+    <button type="submit">Post</button>
+  </form>
+  <% if(locals.posts){ %>
+  <div id="post-list">
+    <ul>
+      <% for(let post of locals.posts){ %>
+      <li><%= post.contents %></li>
+      <% } %>
+    </ul>
+  </div>
   <% } %>
-</ul>
-<p>Hello</p>
+</section>

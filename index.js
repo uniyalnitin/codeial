@@ -33,7 +33,6 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(expressLayouts);
 app.use(express.static("assets"));
-app.use(passport.setAuthenticatedUser);
 
 // Use mongo store for saving session data
 app.use(
@@ -60,6 +59,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(passport.setAuthenticatedUser);
 // use express router
 app.use("/", require("./routes"));
 
