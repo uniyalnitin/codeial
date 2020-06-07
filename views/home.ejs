@@ -2,7 +2,7 @@
 <h1>Codial</h1>
 <section>
   <h4>Posts</h4>
-  <form action="/posts/create" method="POST">
+  <form action="/posts/create" method="POST" id="post-form">
     <textarea
       name="content"
       id="content"
@@ -21,6 +21,15 @@
         <%= post.contents %>
         <br />
         <small><%= post.user.name %> </small>
+        <% for(let comment of post.comments){ %>
+        <p class="comment-text"><%= comment.content %></p>
+        <small>by <%= comment.user.name %> </small>
+        <% } %>
+        <form action="/comments/create" method="POST" id="add-comment">
+          <input type="text" placeholder="Enter comment.." name="content" />
+          <input type="hidden" name="post_id" value="<%= post._id %>" />
+          <button type="submit">Comment</button>
+        </form>
       </li>
 
       <% } %>
