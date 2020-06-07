@@ -17,7 +17,12 @@
   <div id="post-list">
     <ul>
       <% for(let post of locals.posts){ %>
-      <li><%= post.contents %></li>
+      <li>
+        <%= post.contents %>
+        <br />
+        <small><%= post.user.name %> </small>
+      </li>
+
       <% } %>
     </ul>
   </div>

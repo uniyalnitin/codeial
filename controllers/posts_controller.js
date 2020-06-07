@@ -11,7 +11,7 @@ module.exports.createPost = function (req, res) {
         console.log("Error while creating post");
         return;
       }
-      return res.send(post);
+      return res.redirect("back");
     }
   );
 };

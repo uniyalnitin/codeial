@@ -1,20 +1,12 @@
 const Post = require("../models/post");
 
 module.exports.home = function (req, res) {
-  if (req.isAuthenticated()) {
-    Post.find({ user: req.user.id }, function (err, posts) {
-      if (err) {
-        console.log("Error while fetching the posts from database!");
-        return;
-      }
+  Post.find({})
+    .populate("user")
+    .exec(function (err, posts) {
       return res.render("home", {
-        title: "home",
+        title: "Home",
         posts: posts,
       });
     });
-  } else {
-    return res.render("home", {
-      title: "home",
-    });
-  }
 };
