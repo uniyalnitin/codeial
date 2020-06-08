@@ -1,11 +1,10 @@
 const User = require("../models/user");
 
-module.exports.userProfile = function (req, res) {
-  User.findById(req.params.id, function (err, user) {
-    return res.render("profile", {
-      title: "profile",
-      profileUser: user,
-    });
+module.exports.userProfile = async function (req, res) {
+  const user = await User.findById(req.params.id);
+  return res.render("profile", {
+    title: "profile",
+    profileUser: user,
   });
 };
 
@@ -29,30 +28,24 @@ module.exports.signUp = function (req, res) {
   });
 };
 
-module.exports.createUser = function (req, res) {
-  if (req.body.password != req.body.confirmPassword) {
-    return res.redirect("back");
-  }
-
-  User.findOne({ email: req.body.email }, function (err, user) {
-    if (err) {
-      console.log("error in finding user in signing up");
-      return;
+module.exports.createUser = async function (req, res) {
+  try {
+    if (req.body.password != req.body.confirmPassword) {
+      return res.redirect("back");
     }
 
-    if (!user) {
-      User.create(req.body, function (err, user) {
-        if (err) {
-          console.log("error in creating user while signing up");
-          return;
-        }
+    let user = await User.findOne({ email: req.body.email });
 
-        return res.redirect("/users/sign-in");
-      });
+    if (!user) {
+      user = await User.create(req.body);
+      return res.redirect("/users/sign-in");
     } else {
       return res.redirect("back");
     }
-  });
+  } catch (error) {
+    console.log("error in creating user while signing up");
+    return;
+  }
 };
 
 // sign in and create a session for the user
@@ -65,12 +58,17 @@ module.exports.destroySession = function (req, res) {
   return res.redirect("/users/sign-in");
 };
 
-module.exports.update = function (req, res) {
-  if (req.params.id == req.user.id) {
-    User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
-      return res.redirect("back");
-    });
-  } else {
-    return res.status(403).send("Unauthorized!");
+module.exports.update = async function (req, res) {
+  try {
+    if (req.params.id == req.user.id) {
+      const user = User.findByIdAndUpdate(req.params.id, req.body);
+      (await user).save();
+      return res.redirect("/");
+    } else {
+      return res.status(403).send("Unauthorized!");
+    }
+  } catch (error) {
+    console.log("Error while updating the user!");
+    return;
   }
 };
