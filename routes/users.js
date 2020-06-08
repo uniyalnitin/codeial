@@ -6,7 +6,7 @@ const router = express.Router();
 const userController = require("../controllers/user_controller");
 
 router.get(
-  "/profile",
+  "/profile/:id",
   passport.checkAuthentication,
   userController.userProfile
 );
@@ -22,5 +22,7 @@ router.post(
   passport.authenticate("local", { failureRedirect: "/users/sign-in" }),
   userController.createSession
 );
+
+router.post("/update/:id", passport.checkAuthentication, userController.update);
 
 module.exports = router;

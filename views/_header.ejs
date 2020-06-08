@@ -2,7 +2,7 @@
   <p>Codial</p>
   <div id="header-content">
     <% if(locals.user){ %>
-    <div><a href="/users/profile"><%= user.name %></a></div>
+    <div><a href="/users/profile/<%= user.id %>"><%= user.name %></a></div>
     <div><a href="/users/sign-out">Sign Out</a></div>
     <% } else { %>
     <div><a href="/users/sign-in">Sign In</a></div>

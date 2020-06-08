@@ -1,4 +1,13 @@
 <link rel="stylesheet" href="/css/home.css" />
-<h1>This is body</h1>
-<p>Hello</p>
-<p><%= user.name %></p>
+<section>
+  <div><p><%= user.name %></p></div>
+  <div><p><%= user.email %></p></div>
+  <% if(locals.user && profileUser.id == user.id) { %>
+  <h4>Edit Profile</h4>
+  <form action="/users/update/<%= profileUser.id %>" method="POST">
+    <input type="text" name="name" placeholder="user name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <button type="submit">Submit</button>
+  </form>
+  <% } %>
+</section>
