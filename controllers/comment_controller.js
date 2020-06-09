@@ -20,8 +20,9 @@ module.exports.create = async function (req, res) {
       return res.redirect("back");
     }
   } catch (error) {
+    req.flash("error", error);
     console.log("Error", error);
-    return;
+    return res.redirect("back");
   }
 };
 
@@ -43,6 +44,8 @@ module.exports.destroy = async function (req, res) {
       return res.status(403).send("UnAuthorized access");
     }
   } catch (error) {
+    req.flash("error", error);
     console.log("Error:", error);
+    return res.redirect("back");
   }
 };

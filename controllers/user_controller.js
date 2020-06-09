@@ -45,8 +45,9 @@ module.exports.createUser = async function (req, res) {
       return res.redirect("back");
     }
   } catch (error) {
+    req.flash("error", error);
     console.log("error in creating user while signing up");
-    return;
+    return res.redirect("back");
   }
 };
 
@@ -73,7 +74,8 @@ module.exports.update = async function (req, res) {
       return res.status(403).send("Unauthorized!");
     }
   } catch (error) {
+    req.flash("error", error);
     console.log("Error while updating the user!");
-    return;
+    return res.redirect("back");
   }
 };

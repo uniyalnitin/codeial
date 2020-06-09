@@ -10,8 +10,9 @@ module.exports.create = async function (req, res) {
     req.flash("success", "Successfully posted!");
     return res.redirect("back");
   } catch (error) {
+    req.flash("error", error);
     console.log("Error white creating the post!");
-    return;
+    return res.redirect("back");
   }
 };
 
@@ -25,7 +26,8 @@ module.exports.destroy = async function (req, res) {
       return res.redirect("back");
     }
   } catch (error) {
+    req.flash("error", error);
     console.log("Error white deleting the post!");
-    return;
+    return res.redirect("back");
   }
 };

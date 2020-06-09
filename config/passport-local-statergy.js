@@ -6,14 +6,17 @@ passport.use(
   new LocalStatergy(
     {
       usernameField: "email",
+      passReqToCallback: true,
     },
-    function (email, password, done) {
+    function (req, email, password, done) {
       User.findOne({ email: email }, function (err, user) {
         if (err) {
+          req.flash("error", "Error in finding user!");
           console.error.bind(console, "Error in finding User!");
           return done(err);
         }
         if (!user || user.password != password) {
+          req.flash("error", "Username or password is Invalid!");
           console.error.bind(console, "Username, Password doesn't match");
           return done(null, false);
         }
