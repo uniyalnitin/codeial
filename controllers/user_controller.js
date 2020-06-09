@@ -38,8 +38,10 @@ module.exports.createUser = async function (req, res) {
 
     if (!user) {
       user = await User.create(req.body);
+      req.flash("success", "Account created successfully..");
       return res.redirect("/users/sign-in");
     } else {
+      req.flash("success", "Email id already registered.");
       return res.redirect("back");
     }
   } catch (error) {
@@ -50,10 +52,12 @@ module.exports.createUser = async function (req, res) {
 
 // sign in and create a session for the user
 module.exports.createSession = function (req, res) {
+  req.flash("success", "Successfully signed in!");
   return res.redirect("/");
 };
 
 module.exports.destroySession = function (req, res) {
+  req.flash("success", "Successfully logged out!");
   req.logout();
   return res.redirect("/users/sign-in");
 };
@@ -61,8 +65,9 @@ module.exports.destroySession = function (req, res) {
 module.exports.update = async function (req, res) {
   try {
     if (req.params.id == req.user.id) {
-      const user = User.findByIdAndUpdate(req.params.id, req.body);
+      const user = await User.findByIdAndUpdate(req.params.id, req.body);
       (await user).save();
+      req.flash("success", "Successfully Updated the details.");
       return res.redirect("/");
     } else {
       return res.status(403).send("Unauthorized!");

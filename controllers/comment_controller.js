@@ -16,7 +16,7 @@ module.exports.create = async function (req, res) {
         post.comments.push(comment._id);
         post.save(); // Important while updating the data
       }
-
+      req.flash("success", "Comment added..");
       return res.redirect("back");
     }
   } catch (error) {
@@ -36,7 +36,7 @@ module.exports.destroy = async function (req, res) {
       const post = await Post.findByIdAndUpdate(postId, {
         $pull: { comments: req.params.id },
       });
-
+      req.flash("success", "Comment deleted successfully");
       return res.redirect("back");
     } else {
       console.log("Unauthorised to delete the comment");

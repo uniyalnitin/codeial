@@ -12,7 +12,9 @@
   <body>
     <%- include('_header') %>
     <div class="container">
-      <%- body %>
+      <% if(flash.success && flash.success.length > 0) { %>
+      <p><%= flash.success %></p>
+      <% } %> <%- body %>
     </div>
     <%- include('_footer') %> <%- script %>
   </body>
