@@ -1,4 +1,24 @@
 {
+  function successNotification(message){
+    new Noty({
+      theme: "relax",
+      text: message,
+      type: "success",
+      layout: "topRight",
+      timeout: 1500
+    }).show();
+  }
+
+  function errorNotification(message){
+    new Noty({
+      theme: "relax",
+      text: message,
+      type: "error",
+      layout: "topRight",
+      timeout: 1500
+    }).show();
+  }
+  
   function createPost() {
     let newPostForm = $("#new-post-form");
 
@@ -14,9 +34,11 @@
           const newPost = appendToDom(data.data.post);
           $(newPost).prependTo("#post-list > ul");
           deletePost($(" .post-delete-button", newPost));
+          successNotification(data.message);
         },
         error: function (error) {
           console.log(error.responseText);
+          errorNotification(error.responseText);
         },
       });
     });
@@ -46,9 +68,11 @@
         console.log(data.data.post_id);
         $(`#post-${data.data.post_id}`).remove();
         console.log("Successfully deleted the post");
+        successNotification(data.message);
       },
       error: function (error) {
         console.log(error.responseText);
+        errorNotification(error.responseText);
       },
     });
   }
@@ -82,10 +106,12 @@
           $(" .delete-comment-link", newComment).click(function(e){
             e.preventDefault();
             deleteComment(this);
-          })
+          });
+          successNotification(data.message);
         },
         error: function(error){
           console.log(error.responseText);
+          errorNotification(error.responseText);
         }
       });
     });
@@ -108,9 +134,11 @@
         url: $(deleteLink).prop("href"),
         success: function(data){
           $(`#comment-${data.data.comment_id}`).remove();
+          successNotification(data.message);
         },
         error: function(error){
           console.log(error.responseText);
+          errorNotification(error.responseText);
         }
     })
   }
