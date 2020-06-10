@@ -1,12 +1,17 @@
 <li id="post-<%= post._id %>">
   <% if (locals.user && locals.user.id == post.user.id) { %>
-  <a class="post-delete-button" href="/posts/delete/<%= post.id %>">X</a> &emsp;
-  <% } %> <%= post.contents %>
+    <a class="post-delete-button" href="/posts/delete/<%= post.id %>">X</a> &emsp;
+  <% } %> 
+  <%= post.contents %>
   <br />
   <small><%= post.user.name %> </small>
-  <% for(let comment of post.comments){ %> <%- include('_comment', {comment:
-  comment}) -%> <% } %> <% if (locals.user) { %>
-  <form action="/comments/create" method="POST" class="add-comment">
+  <div class="comment-container">
+    <% for(let comment of post.comments){ %> 
+      <%- include('_comment', {comment:comment}) -%>
+    <% } %> 
+  </div>
+  <% if (locals.user) { %>
+  <form action="/comments/create" method="POST" class="new-comment-form">
     <input type="text" placeholder="Enter comment.." name="content" />
     <input type="hidden" name="post_id" value="<%= post._id %>" />
     <button type="submit">Comment</button>

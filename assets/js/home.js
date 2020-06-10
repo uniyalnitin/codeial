@@ -65,4 +65,58 @@
     e.preventDefault();
     deleteLinkHandler(this);
   });
+
+  function createComment(){
+    $(".new-comment-form").submit(function (e) { 
+      e.preventDefault();
+      let div = $(this).prev();
+      const that = $(this);
+
+      $.ajax({
+        type: "post",
+        url: "/comments/create",
+        data: that.serialize(),
+        success: function (data) {
+          const newComment = appendToDomComment(data.data.comment, data.data.user)
+          div.prepend(newComment);
+          $(" .delete-comment-link", newComment).click(function(e){
+            e.preventDefault();
+            deleteComment(this);
+          })
+        },
+        error: function(error){
+          console.log(error.responseText);
+        }
+      });
+    });
+  }
+
+  function appendToDomComment(comment, user){
+    return $(`<div id="comment-${comment._id}">
+              <a class="delete-comment-link" href="/comments/delete/${comment._id}">X</a>
+              <p class="comment-text">${comment.content}</p>
+              <small>by ${user} </small>
+          </div>`);
+  }
+
+  createComment();
+
+  function deleteComment(deleteLink){
+      console.log(deleteLink);
+      $.ajax({
+        type:"get",
+        url: $(deleteLink).prop("href"),
+        success: function(data){
+          $(`#comment-${data.data.comment_id}`).remove();
+        },
+        error: function(error){
+          console.log(error.responseText);
+        }
+    })
+  }
+
+  $(".delete-comment-link").click(function(e){
+    e.preventDefault();
+    deleteComment(this);
+  });
 }
